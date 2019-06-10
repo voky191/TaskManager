@@ -44,4 +44,25 @@ class News
     return $newsList;
 
   }
+
+    public static function getNewsNew($name, $mail, $text, $image, $status)
+    {
+        $db = Db::getConnection();
+        $sqlquery = 'INSERT INTO tasks (name,mail,text,image,status) VALUES (:name,:mail,:text,:image,:status)';
+            $result = $db->prepare($sqlquery);
+        // $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':name', $name, PDO::PARAM_STR);
+        $result->bindParam(':mail', $mail, PDO::PARAM_STR);
+        $result->bindParam(':text', $text, PDO::PARAM_STR);
+        $result->bindParam(':image', $image, PDO::PARAM_STR);
+        $result->bindParam(':status', $status, PDO::PARAM_STR);
+
+        return $result->execute();
+    }
+
+    public static function getNewsEdit($id)
+    {
+        $db = Db::getConnection();
+
+    }
 }

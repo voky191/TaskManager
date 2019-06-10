@@ -15,8 +15,27 @@
             } );
         } );
     </script>
+
+    <style>
+        img {
+            max-width:100%;
+            height:auto;
+        }
+    </style>
 </head>
 <body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Task Manager</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/news/">Home</a></li>
+            <li><a href="#">Login In</a></li>
+            <li><a href="/news/new/">Create new task</a></li>
+        </ul>
+    </div>
+</nav>
 
 <table id="example" class="display" cellspacing="0" width="100%">
     <thead class="thead-dark">
@@ -27,6 +46,8 @@
         <th scope="col">Text</th>
         <th scope="col">Image</th>
         <th scope="col">Status</th>
+        <th scope="col">Details</th>
+
 
     </tr>
     </thead>
@@ -38,17 +59,20 @@
         <td><?php echo "$newsItem[name]" ?></td>
         <td><?php echo "$newsItem[mail]" ?></td>
         <td><?php echo "$newsItem[text]" ?></td>
-        <td><?php echo "$newsItem[image]" ?></td>
+        <td><?php
+            if($newsItem[image]!="") {
+                echo "<img src='/images/" . $newsItem[image] . "' height='100' width='200'>";
+            }
+            ?></td>
         <td><?php echo "$newsItem[status]" ?></td>
+        <td><?php echo "<a href='/news/$newsItem[id]'>";
+        ?><button type="button" class="btn btn-default">Watch</button></a></td>
 
 
     </tr>
     <?php endforeach; ?>
     </tbody>
 </table>
-
-
-
 
 </body>
 </html>
