@@ -17,39 +17,41 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="/news/">Home</a></li>
-            <li><a href="#">Login In</a></li>
+            <li><a href="/login">Login In</a></li>
+            <li><a href="/register">Register</a></li>
         </ul>
     </div>
 </nav>
 
-    <form action="#" method="POST">
+<form action="#" method="POST">
+
+    <a class="form-group">
 
         <div class="form-group">
+            <label>Name</label>
+            <input name="name" type="text" class="form-control" id="email" value="<?php echo $newsItem[name]; ?>">
+        </div>
+        <div class="form-group">
+            <label>Mail</label>
+            <input name="mail" type="text" class="form-control" id="email" value="<?php echo $newsItem[mail]; ?>">
+        </div>
+        <div class="form-group">
+            <label>Text</label>
+            <input name="text" type="text" class="form-control" id="email" value="<?php echo $newsItem[text]; ?>">
+        </div>
+        <div class="form-group">
+            <label>Image</label>
+            <input name="image" type="text" class="form-control" id="email" value="<?php echo $newsItem[image]; ?>">
+        </div>
+        <div class="form-group">
+            <label>Status</label>
+            <input name="status" type="text" class="form-control" id="email" value="<?php echo $newsItem[status]; ?>">
+        </div>
 
-            <div class="form-group">
-                <label>Name</label>
-                <input name="name" type="text" class="form-control" id="email" value="<?php echo $name;?>">
-            </div>
-            <div class="form-group">
-                <label>Mail</label>
-                <input name="mail" type="text" class="form-control" id="email" value="<?php echo $mail;?>">
-            </div>
-            <div class="form-group">
-                <label>Text</label>
-                <input name="text" type="text" class="form-control" id="email" value="<?php echo $text;?>">
-            </div>
-            <div class="form-group">
-                <label>Image</label>
-                <input name="image" type="text" class="form-control" id="email" value="<?php echo $image;?>">
-            </div>
-            <div class="form-group">
-                <label>Status</label>
-                <input name="status" type="text" class="form-control" id="email" value="<?php echo $status;?>">
-            </div>
+        <p>
+            <button name="submit" type="submit" class="btn btn-success">Save</button></a>
+        </p>
+</form>
 
-            <p>
-                <button type="submit" class="btn btn-success">Save</button>
-            </p>
-    </form>
 </body>
 </html>

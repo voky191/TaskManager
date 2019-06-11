@@ -16,8 +16,11 @@
             <a class="navbar-brand" href="#">Task Manager</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/news/">Home</a></li>
-            <li><a href="#">Login In</a></li>
+            <li><a href="/news/">Home</a></li>
+            <li><a href="/login">Login In</a></li>
+            <li><a href="/register">Register</a></li>
+            <li class="active"><a href="/news/new/">Create new task</a></li>
+
         </ul>
     </div>
 </nav>

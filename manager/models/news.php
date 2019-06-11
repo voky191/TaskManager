@@ -60,9 +60,16 @@ class News
         return $result->execute();
     }
 
-    public static function getNewsEdit($id)
+    public static function editTask($id)
     {
         $db = Db::getConnection();
+        $name = $_POST['name'];
+        $email = $_POST['mail'];
+        $des = $_POST['text'];
+        $img = $_POST['image'];
+        $stat = $_POST['status'];
+        $result = $db->query("Update tasks SET name='$name',mail='$email',text='$des', image='$img',status='$stat' where id=$id");
+        return $result;
 
     }
 }

@@ -4,12 +4,12 @@ include_once ROOT.'/models/news.php';
 
 class NewsController
 {
-    public function actionIndex()
+    public function actionMain()
     {
         $newsList = array();
         $newsList = news::getNewsList();
 
-       require_once(ROOT.'/views/index.php');
+       require_once(ROOT.'/views/main.php');
 
        /*echo '<pre>';
         print_r($newsList);
@@ -55,17 +55,11 @@ class NewsController
 
     }
 
-    public function actionEdit()
+    public function actionEdit($id)
     {
-        $task = news::getNewsItemById();
-
-        $name = $task['name'];
-        $mail = $task['mail'];
-        $text = $task['text'];
-        $image = $task['image'];
-        $status = $task['status'];
-
-
+        $newsItem = news::getNewsItemById($id);
+        $result = news::editTask($id);
+        //header('Location: /tasks');
 
         require_once(ROOT.'/views/edit.php');
         return true;

@@ -24,8 +24,9 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="/news/">Home</a></li>
-            <li><a href="#">Login In</a></li>
-            <li><a href="#">Create new task</a></li>
+            <li><a href="/login">Login In</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/news/new/">Create new task</a></li>
         </ul>
     </div>
 </nav>
@@ -58,7 +59,8 @@
     </b>
     <?php echo $newsItem[status]; ?>
 </p>
-    <a href="/news/edit"><button type="button" class="btn btn-warning">Edit task</button></a>
+    <?php echo "<a href='/news/$newsItem[id]/edit'>";
+    ?><button type="button" class="btn btn-warning">Edit task</button></a>
     <a href="/news/"><button type="button" class="btn btn-default">Return</button></a>
 
 </div>
