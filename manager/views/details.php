@@ -24,9 +24,14 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="/news/">Home</a></li>
-            <li><a href="/login">Login In</a></li>
-            <li><a href="/register">Register</a></li>
             <li><a href="/news/new/">Create new task</a></li>
+            <?php if(user::isGuest()): ?>
+                <li><a href="/login">Login In</a></li>
+                <li><a href="/register">Register</a></li>
+            <?php else: ?>
+                <li><a href="#"><?php echo "Hello, ".$_SESSION['user_name']; ?></a></li>
+                <li><a href="/logout">Log out</a></li>
+            <?php endif; ?>
         </ul>
     </div>
 </nav>
@@ -59,9 +64,11 @@
     </b>
     <?php echo $newsItem[status]; ?>
 </p>
+    <a href="/news/"><button type="button" class="btn btn-default">Return</button></a>
+    <?php if($_SESSION['user_name']=='admin'): ?>
     <?php echo "<a href='/news/$newsItem[id]/edit'>";
     ?><button type="button" class="btn btn-warning">Edit task</button></a>
-    <a href="/news/"><button type="button" class="btn btn-default">Return</button></a>
+    <?php endif; ?>
 
 </div>
 </body>

@@ -4,4 +4,4 @@ return array(
     'dbname' => 'testdb',
     'user' => 'root',
     'password' => ''
-    );
+);

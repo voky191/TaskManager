@@ -3,6 +3,11 @@
 
 class user
 {
+    public static function auth($userId)
+    {
+        $_SESSION['user'] = $userId;
+    }
+
     public static function register($name, $pass)
     {
         $db = Db::getConnection();
@@ -11,6 +16,8 @@ class user
         $result = $db->prepare($sql);
         $result->bindParam(':name', $name, PDO::PARAM_STR);
         $result->bindParam(':password', $pass, PDO::PARAM_STR);
+
+        $pass = password_hash($pass, PASSWORD_DEFAULT);
 
         return $result->execute();
     }
@@ -55,27 +62,53 @@ class user
     {
         $db = Db::getConnection();
 
-        $sql = 'SELECT * FROM user WHERE name = :name AND password = :password';
+        $sql = 'SELECT * FROM user WHERE name = :name';
 
         $result = $db->prepare($sql);
         $result->bindParam(':name', $name, PDO::PARAM_INT);
-        $result->bindParam(':password', $pass, PDO::PARAM_INT);
         $result->execute();
 
         $user = $result->fetch();
-        if($user)
+        $hash_pass = $user['password'];
+
+        if(password_verify($pass, $hash_pass))
         {
             return $user['user_id'];
+        }else return false;
+    }
+
+    public static function checkLogged()
+    {
+        if(isset($_SESSION['user']))
+        {
+            return $_SESSION['user'];
         }
 
-        return false;
+        header('Location: /login');
     }
 
-    public static function auth($userId)
+    public static function isGuest()
     {
-      session_start();
-      $_SESSION['user'] = $userId;
+        if(isset($_SESSION['user']))
+        {
+            return false;
+        }
+        return true;
     }
 
+    public static function getUserById($id)
+    {
+        if($id)
+        {
+            $db = Db::getConnection();
+            $sql = 'SELECT * FROM user WHERE user_id = :id';
+            $result = $db->prepare($sql);
+            $result->bindParam(':id', $id, PDO::PARAM_INT);
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+            $result->execute();
+
+            return $result->fetch();
+        }
+    }
 
 }

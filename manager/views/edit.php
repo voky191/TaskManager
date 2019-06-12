@@ -17,13 +17,19 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="/news/">Home</a></li>
-            <li><a href="/login">Login In</a></li>
-            <li><a href="/register">Register</a></li>
+            <li><a href="/news/new/">Create new task</a></li>
+            <?php if(user::isGuest()): ?>
+                <li><a href="/login">Login In</a></li>
+                <li><a href="/register">Register</a></li>
+            <?php else: ?>
+                <li><a href="#"><?php echo "Hello, ".$_SESSION['user_name']; ?></a></li>
+                <li><a href="/logout">Log out</a></li>
+            <?php endif; ?>
         </ul>
     </div>
 </nav>
 
-<form action="#" method="POST">
+<form action="/news/<?php echo $newsItem['id'] ?>/edit" method="POST">
 
     <a class="form-group">
 

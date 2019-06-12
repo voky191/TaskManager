@@ -97,9 +97,14 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="/news/">Home</a></li>
-            <li class="active"><a href="/login">Login In</a></li>
-            <li><a href="/register">Register</a></li>
             <li><a href="/news/new/">Create new task</a></li>
+            <?php if(user::isGuest()): ?>
+                <li class="active"><a href="/login">Login In</a></li>
+                <li><a href="/register">Register</a></li>
+            <?php else: ?>
+                <li><a href="#"><?php echo "Hello, ".$_SESSION['user_name']; ?></a></li>
+                <li><a href="/logout">Log out</a></li>
+            <?php endif; ?>
         </ul>
     </div>
 </nav>
