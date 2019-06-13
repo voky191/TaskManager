@@ -47,6 +47,8 @@ class NewsController
 
             $result = news::getNewsNew($name, $mail, $text, $image, $status);
 
+
+
             header("Location:/news");
         }
 
@@ -60,14 +62,15 @@ class NewsController
     {
         if($_SESSION['user_name']=='admin')
         {
-            $newsItem = news::getNewsItemById($id);
-            $result = news::editTask($id);
-
-
-            require_once(ROOT . '/views/edit.php');
-
-            return true;
+            if(isset($_POST['submit'])) {
+                $newsItem = news::getNewsItemById($id);
+                $result = news::editTask($id);
+            }
         }
+
+        require_once(ROOT . '/views/edit.php');
+
+        return true;
 
     }
 

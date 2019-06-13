@@ -2,7 +2,8 @@
 
 class News
 {
-  public static function getNewsItemById($id)
+
+    public static function getNewsItemById($id)
   {
 
       $id = intval($id);
@@ -47,6 +48,59 @@ class News
 
     public static function getNewsNew($name, $mail, $text, $image, $status)
     {
+        $filePath  = $_FILES['image']['tmp_name'];
+
+        $fi = finfo_open(FILEINFO_MIME_TYPE);
+
+        $mime = (string) finfo_file($fi, $filePath);
+
+        finfo_close($fi);
+
+        if (strpos($mime, 'image') === false) die('Only images are allowed!');
+
+        $image = getimagesize($filePath);
+
+        $pname = md5_file($filePath);
+
+        $extension = image_type_to_extension($image[2]);
+
+        $format = str_replace('jpeg', 'jpg', $extension);
+
+        if (!move_uploaded_file($filePath, ROOT . '/images/' . $pname . $format)) {
+            die('Upload on disk error.');
+        }
+
+        $pic = $pname.$format;
+
+        if($format=='.png'){
+            $im = imagecreatefrompng( ROOT.'/images/'.$pic );
+        } else $im=imagecreatefromjpeg(ROOT.'/images/'.$pic);
+
+        $width = imagesx($im);
+        $height = imagesy($im);
+
+        $scalingFactor = 200 / $width;
+
+        $newImageHeight = $height * $scalingFactor;
+
+        $im1=imagecreatetruecolor(200, $newImageHeight);
+
+        if($format=='.png')
+        {
+            imagealphablending( $im1, false );
+            imagesavealpha( $im1, true );
+        }
+
+        imagecopyresampled($im1,$im,0,0,0,0,200,$newImageHeight,$width,$height);
+        if($format!='.png') {
+            imagejpeg($im1, ROOT . '/images/' . $pic);
+        }
+        else imagepng($im1, ROOT . '/images/' . $pic, 9);
+
+
+        imagedestroy($im);
+        imagedestroy($im1);
+
         $db = Db::getConnection();
         $sqlquery = 'INSERT INTO tasks (name,mail,text,image,status) VALUES (:name,:mail,:text,:image,:status)';
         $result = $db->prepare($sqlquery);
@@ -54,7 +108,7 @@ class News
         $result->bindParam(':name', $name, PDO::PARAM_STR);
         $result->bindParam(':mail', $mail, PDO::PARAM_STR);
         $result->bindParam(':text', $text, PDO::PARAM_STR);
-        $result->bindParam(':image', $image, PDO::PARAM_STR);
+        $result->bindParam(':image', $pic, PDO::PARAM_STR);
         $result->bindParam(':status', $status, PDO::PARAM_STR);
         $result->execute();
         return $result;

@@ -84,7 +84,7 @@ class user
             return $_SESSION['user'];
         }
 
-        header('Location: /login');
+        //header('Location: /login');
     }
 
     public static function isGuest()
