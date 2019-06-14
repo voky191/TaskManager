@@ -34,7 +34,7 @@ if(isset($errors) && is_array($errors))
             <div class="line"></div>
         </div>
     </label>
-    <input class="button" type="submit" name="submit" value="Submit"/>
+    <input class="button" type="submit" name="submit" id="AjaxSend" value="Submit"/>
 </form>
 <?php endif; ?>
 <?php include ROOT.'/layouts/footer.php'; ?>

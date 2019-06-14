@@ -126,4 +126,41 @@ class News
         return $result;
 
     }
+
+    public static function validateName($name)
+    {
+        if(strlen($name)>=3)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static function validateMail($mail)
+    {
+        if(filter_var($mail, FILTER_VALIDATE_EMAIL))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static function validateText($text)
+    {
+        if(strlen($text)>=3)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static function validateStatus($status)
+    {
+        if(strlen($status)>=3)
+        {
+            return true;
+        }
+        return false;
+    }
+
 }

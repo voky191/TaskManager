@@ -45,11 +45,34 @@ class NewsController
             $image = $_POST['image'];
             $status = $_POST['status'];
 
-            $result = news::getNewsNew($name, $mail, $text, $image, $status);
+            $errors = false;
 
+            if(!news::validateName($name))
+            {
+                $errors[] = 'Name should be longer then 2 characters';
+            }
 
+            if(!news::validateMail($mail))
+            {
+                $errors[] = 'Incorrect mail';
+            }
 
-            header("Location:/news");
+            if(!news::validateText($text))
+            {
+                $errors[] = 'Text should be longer then 2 characters';
+            }
+
+            if(!news::validateStatus($status))
+            {
+                $errors[] = 'Status should be longer then 2 characters';
+            }
+
+            if($errors == FALSE)
+            {
+                $result = news::getNewsNew($name, $mail, $text, $image, $status);
+            }
+
+            //header("Location:/news");
         }
 
         require_once(ROOT.'/views/new.php');
